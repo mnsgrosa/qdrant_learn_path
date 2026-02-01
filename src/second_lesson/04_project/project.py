@@ -2,8 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from qdrant_client import QdrantClient, models
-
-from .utils.helper_functions import get_animes_by_season, parse_data
+from utils.helper_functions import get_animes_by_season, parse_data
 
 load_dotenv()
 
@@ -11,7 +10,9 @@ load_dotenv()
 class ClientManager:
     def __init__(self):
         self.client = QdrantClient(
-            url=os.getenv("QDRANT_URL"), api_key=os.getenv("QDRANT_API_KEY")
+            url=os.getenv("QDRANT_URL"),
+            api_key=os.getenv("QDRANT_API_KEY"),
+            timeout=300,
         )
         self.collection_name = "anime_synopsis"
         self.check_collection()
@@ -21,7 +22,7 @@ class ClientManager:
     def check_collection(self):
         if not self.client.collection_exists(collection_name=self.collection_name):
             self.client.create_collection(
-                collection_name="anime_search",
+                collection_name=self.collection_name,
                 vectors_config={
                     "fixed": models.VectorParams(
                         size=384, distance=models.Distance.COSINE
@@ -58,3 +59,9 @@ class ClientManager:
                 collection_name=self.collection_name, points=self.create_structs()
             )
         return None
+
+
+if __name__ == "__main__":
+    client = ClientManager()
+    client.store_synopsis(2025, "summer").parse_synopsis()
+    client.upsert_date()
