@@ -9,9 +9,9 @@ Most of the time it isn't needed to design you own metric from scratch<br>
 - third party embedding models
   - Use the metric recommended in model docs often cosine or dot
   - create your qdrant collection with that metric
--  If the modle docs doesn't tell
+-  If the model docs doesn't tell
   - Pick cosine in qdrant
-  - qdrant normalize it in cosine collections with L2
+  - qdrant normalize it in cosine collections
 
 ## When to use each:
 

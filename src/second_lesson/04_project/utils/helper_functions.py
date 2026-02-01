@@ -2,6 +2,7 @@ import logging
 from uuid import uuid4
 
 import httpx
+import nltk
 import numpy as np
 from nltk.tokenize import sent_tokenize
 from sentence_transformers import SentenceTransformer
@@ -11,6 +12,7 @@ from .constants import BASE_URL
 logging.basicConfig(level=logging.INFO)
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
+nltk.download("punkt_tab")
 
 
 def fixed_chunking(data: str) -> list[str]:
