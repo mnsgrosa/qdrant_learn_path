@@ -6,6 +6,8 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "dotenv>=0.9.9",
+    "nltk>=3.9.2",
     "notebook>=7.5.3",
     "qdrant-client>=1.16.2",
+    "sentence-transformers>=5.2.2",
 ]
